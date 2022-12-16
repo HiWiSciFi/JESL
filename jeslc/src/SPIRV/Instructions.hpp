@@ -29,9 +29,9 @@ constexpr uint32_t OpGroupDecorate                                         = 0x0
 constexpr uint32_t OpGroupMemberDecorate                                   = 0x004B;
 constexpr uint32_t OpDecorateId                                            = 0x014C;
 constexpr uint32_t OpDecorateString                                        = 0x1600;
-constexpr uint32_t OpDecorateStringGOOGLE                        = OpDecorateString;
+constexpr uint32_t OpDecorateStringGOOGLE                                  = 0x1600;
 constexpr uint32_t OpMemberDecorateString                                  = 0x1601;
-constexpr uint32_t OpMemberDecorateStringGOOGLE            = OpMemberDecorateString;
+constexpr uint32_t OpMemberDecorateStringGOOGLE                            = 0x1601;
 
 // EXTENSION
 
@@ -216,17 +216,17 @@ constexpr uint32_t OpISubBorrow                                            = 0x0
 constexpr uint32_t OpUMulExtended                                          = 0x0097;
 constexpr uint32_t OpSMulExtended                                          = 0x0098;
 constexpr uint32_t OpSDot                                                  = 0x1162;
-constexpr uint32_t OpSDotKHR                                               = OpSDot;
+constexpr uint32_t OpSDotKHR                                               = 0x1162;
 constexpr uint32_t OpUDot                                                  = 0x1163;
-constexpr uint32_t OpUDotKHR                                               = OpUDot;
+constexpr uint32_t OpUDotKHR                                               = 0x1163;
 constexpr uint32_t OpSUDot                                                 = 0x1164;
-constexpr uint32_t OpSUDotKHR                                             = OpSUDot;
+constexpr uint32_t OpSUDotKHR                                              = 0x1164;
 constexpr uint32_t OpSDotAccSat                                            = 0x1165;
-constexpr uint32_t OpSDotAccSatKHR                                   = OpSDotAccSat;
+constexpr uint32_t OpSDotAccSatKHR                                         = 0x1165;
 constexpr uint32_t OpUDotAccSat                                            = 0x1166;
-constexpr uint32_t OpUDotAccSatKHR                                   = OpUDotAccSat;
+constexpr uint32_t OpUDotAccSatKHR                                         = 0x1166;
 constexpr uint32_t OpSUDotAccSat                                           = 0x1167;
-constexpr uint32_t OpSUDotAccSatKHR                                 = OpSUDotAccSat;
+constexpr uint32_t OpSUDotAccSatKHR                                        = 0x1167;
 
 // BIT
 
@@ -313,7 +313,7 @@ constexpr uint32_t OpLifetimeStart                                         = 0x0
 constexpr uint32_t OpLifetimeStop                                          = 0x0101;
 constexpr uint32_t OpTerminateInvocation                                   = 0x1140;
 constexpr uint32_t OpDemoteToHelperInvocation                              = 0x1504;
-constexpr uint32_t OpDemoteToHelperInvocationEXT       = OpDemoteToHelperInvocation;
+constexpr uint32_t OpDemoteToHelperInvocationEXT                           = 0x1504;
 
 // ATOMIC
 
@@ -502,13 +502,13 @@ constexpr uint32_t OpFragmentFetchAMD                                           
 constexpr uint32_t OpReadClockKHR                                                     = 0x13C0;
 constexpr uint32_t OpWritePackedPrimitiveIndices4x8NV                                 = 0x14B3;
 constexpr uint32_t OpReportIntersectionNV                                             = 0x14D6;
-constexpr uint32_t OpReportIntersectionKHR                            = OpReportIntersectionNV;
+constexpr uint32_t OpReportIntersectionKHR                                            = 0x14D6;
 constexpr uint32_t OpTerminateRayNV                                                   = 0x14D8;
 constexpr uint32_t OpTraceNV                                                          = 0x14D9;
 constexpr uint32_t OpTraceMotionNV                                                    = 0x14DA;
 constexpr uint32_t OpTraceRayMotionNV                                                 = 0x14DB;
 constexpr uint32_t OpTypeAccelerationStructureNV                                      = 0x14DD;
-constexpr uint32_t OpTypeAccelerationStructureKHR              = OpTypeAccelerationStructureNV;
+constexpr uint32_t OpTypeAccelerationStructureKHR                                     = 0x14DD;
 constexpr uint32_t OpExecuteCallableNV                                                = 0x14E0;
 constexpr uint32_t OpTypeCooperativeMatrixNV                                          = 0x14EE;
 constexpr uint32_t OpCooperativeMatrixLoadNV                                          = 0x14EF;
