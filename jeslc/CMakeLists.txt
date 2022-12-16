@@ -6,7 +6,7 @@ add_executable(jeslc)
 
 	target_sources(jeslc
 		PRIVATE
-			"${SRC_DIR}/jeslc.cpp"
-			"${SRC_DIR}/jeslc.hpp"
-			"${SRC_DIR}/spirvOpcodes.hpp"
+			"${SRC_DIR}/Jeslc.cpp"
+			"${SRC_DIR}/Jeslc.hpp"
+			"${SRC_DIR}/SPIRV/Instructions.hpp"
 	)
