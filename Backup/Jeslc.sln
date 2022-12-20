@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jeslc", "Jeslc\Jeslc.csproj", "{B263037A-85ED-4800-A5EF-C2546325087E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JeslcTests", "JeslcTests\JeslcTests.csproj", "{102E1BC5-54B3-479B-BC5A-54B182D30569}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B263037A-85ED-4800-A5EF-C2546325087E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B263037A-85ED-4800-A5EF-C2546325087E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B263037A-85ED-4800-A5EF-C2546325087E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B263037A-85ED-4800-A5EF-C2546325087E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{102E1BC5-54B3-479B-BC5A-54B182D30569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{102E1BC5-54B3-479B-BC5A-54B182D30569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{102E1BC5-54B3-479B-BC5A-54B182D30569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{102E1BC5-54B3-479B-BC5A-54B182D30569}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {18D7DE48-CA2F-4009-8273-5097BE829001}
+	EndGlobalSection
+EndGlobal
