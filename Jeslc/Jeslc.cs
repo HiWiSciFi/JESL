@@ -116,10 +116,10 @@
 				Console.Write(": ");
 				Console.WriteLine(codeTokens[i].value);
 			}
-   // ------------------------------------------------------------------------------------------------------------------
+			// ------------------------------------------------------------------------------------------------------------------
 
-			FileStream outStream = File.OpenWrite(outputFilePath);
-
+			FileStream outStream = new(outputFilePath, FileMode.OpenOrCreate, FileAccess.Write);
+			outStream.SetLength(0);
 			Generator.Run(ast, outStream);
 
 			outStream.Flush();
