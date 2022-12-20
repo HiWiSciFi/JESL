@@ -120,11 +120,6 @@
 
 			FileStream outStream = File.OpenWrite(outputFilePath);
 
-			outStream.WriteByte(0);
-			outStream.WriteByte(1);
-			outStream.WriteByte(0);
-			outStream.WriteByte(1);
-
 			Generator.Run(ast, outStream);
 
 			outStream.Flush();
