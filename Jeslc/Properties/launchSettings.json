@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Jeslc": {
+      "commandName": "Project",
+      "commandLineArgs": "-o shader.spv shader.jesl"
+    }
+  }
+}
