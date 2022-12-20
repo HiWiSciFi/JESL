@@ -17,6 +17,7 @@
 
 		public static void WriteInstruction(UInt16 operandsLength, UInt16 opcode, FileStream s)
 		{
+			operandsLength += 1;
 			s.WriteByte((byte)( opcode         & 0x00FF)      );
 			s.WriteByte((byte)((opcode         & 0xFF00) >> 8));
 			s.WriteByte((byte)( operandsLength & 0x00FF)      );
