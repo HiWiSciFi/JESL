@@ -16,6 +16,14 @@
 			s?.WriteByte((byte)((value & 0xFF000000) >> 24));
 		}
 
+		public static void WriteString(String value)
+		{
+			byte[] buffer = System.Text.Encoding.UTF8.GetBytes(value);
+			s?.Write(buffer, 0, buffer.Length);
+			for (int i = (buffer.Length & 0xFF); i < 4 ; i++) s?.WriteByte(0);
+			s?.Write(zeroWord, 0, zeroWord.Length);
+		}
+
 		public static void WriteInstruction(UInt16 opcode, params object[] list)
 		{
 			s?.WriteByte((byte)( opcode & 0x00FF)      );
@@ -24,7 +32,7 @@
 			UInt32 words = 1;
 			for (int i = 0; i < list.Length; i++)
 			{
-				if (list[i] is string str) words += (UInt32)(str.Length + (str.Length % 4 == 0 ? 0 : 4 - (str.Length % 4)) + 1);
+				if (list[i] is string str) words += (UInt32)((str.Length >> 2) + ((str.Length & 0xFF) == 0 ? 1 : 2));
 				else words++;
 			}
 
@@ -41,14 +49,6 @@
 					default: break;
 				}
 			}
-		}
-
-		public static void WriteString(String value)
-		{
-			byte[] buffer = System.Text.Encoding.UTF8.GetBytes(value);
-			s?.Write(buffer, 0, buffer.Length);
-			if (buffer.Length % 4 != 0) for (int i = 0; i < 4 - (buffer.Length % 4); i++) s?.WriteByte(0);
-			s?.Write(zeroWord, 0, zeroWord.Length);
 		}
 
 		public static void Run(Parser.Program program, FileStream stream)
@@ -73,6 +73,7 @@
 			// OpEXtInstImport Instructions
 			WriteInstruction(
 				SPIRV.OpExtInstImport,
+				1,
 				"GLSL.std.450");
 
 			// OpMemoryModel Instruction
