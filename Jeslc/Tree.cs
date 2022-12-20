@@ -49,6 +49,7 @@
 
 			public override void Dispose()
 			{
+				base.Dispose();
 				child?.Dispose();
 				GC.SuppressFinalize(this);
 			}
@@ -57,7 +58,27 @@
 			{
 				if (this.child != child) this.child?.Dispose();
 				this.child = child;
-				if (child != null) child.parent = this;
+				if (child is not null) child.parent = this;
+			}
+		}
+
+		public abstract class Statement : Tree
+		{
+			public Tree? body = null;
+
+			public override void Dispose()
+			{
+				base.Dispose();
+				GC.SuppressFinalize(this);
+			}
+		}
+
+		public abstract class Literal : Tree
+		{
+			public override void Dispose()
+			{
+				base.Dispose();
+				GC.SuppressFinalize(this);
 			}
 		}
 	}

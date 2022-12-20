@@ -83,14 +83,14 @@
 				}
 			}
 
-			if (inputFilePath == null)
+			if (inputFilePath is null)
 			{
 				Console.Error.WriteLine("ERROR: No input file specified");
 				PrintUsage(Console.Error);
 				Environment.Exit(-1);
 			}
 
-			if (outputFilePath == null)
+			if (outputFilePath is null)
 			{
 				int dotIndex = inputFilePath.LastIndexOf('.');
 				if (dotIndex == -1) outputFilePath = inputFilePath + ".spv";
@@ -124,6 +124,8 @@
 			outStream.WriteByte(1);
 			outStream.WriteByte(0);
 			outStream.WriteByte(1);
+
+			Generator.Run(ast, outStream);
 
 			outStream.Flush();
 			outStream.Close();

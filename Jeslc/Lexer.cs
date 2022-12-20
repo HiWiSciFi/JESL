@@ -44,7 +44,7 @@
 
 			public TokenType DetermineType()
 			{
-				if (value == null || value.Length == 0) return TokenType.None;
+				if (value is null || value.Length == 0) return TokenType.None;
 
 				if (value.Length == 1)
 				{
