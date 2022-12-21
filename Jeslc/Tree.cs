@@ -19,7 +19,7 @@
 			public Tree? parent = null;
 			public NodeType type = NodeType.None;
 
-			private static void AddIndent(int indent)
+			protected static void AddIndent(int indent)
 			{
 				for (int i = 0; i < indent; i++) Console.Write("|  ");
 			}
@@ -29,7 +29,7 @@
 				GC.SuppressFinalize(this);
 			}
 
-			public virtual void Print(int indent)
+			public virtual void Print(int indent = 0)
 			{
 				AddIndent(indent);
 				Console.WriteLine($"NodeType: {type}");
@@ -78,6 +78,13 @@
 					this.functions.Add(f);
 				}
 			}
+
+			public override void Print(int indent = 0)
+			{
+				AddIndent(indent);
+				Console.WriteLine("Program");
+				for (int i = 0; i < functions.Count; i++) functions[i].Print(indent + 1);
+			}
 		}
 
 		public class Function : Tree
@@ -90,13 +97,13 @@
 				type = NodeType.Function;
 			}
 
-			public Function(string identifier)
+			public Function(string? identifier)
 			{
 				type = NodeType.Function;
 				this.identifier = identifier;
 			}
 
-			public Function(string identifier, Statement? body)
+			public Function(string? identifier, Statement? body)
 			{
 				type = NodeType.Function;
 				this.identifier = identifier;
@@ -115,6 +122,15 @@
 				this.body?.Dispose();
 				body.parent = this;
 				this.body = body;
+			}
+
+			public override void Print(int indent = 0)
+			{
+				AddIndent(indent);
+				Console.WriteLine($"Function \"{identifier}\"");
+				AddIndent(indent);
+				Console.WriteLine("- Body:");
+				body?.Print(indent + 1);
 			}
 		}
 
@@ -173,6 +189,12 @@
 				base.Dispose();
 				GC.SuppressFinalize(this);
 			}
+
+			public override void Print(int indent = 0)
+			{
+				AddIndent(indent);
+				Console.WriteLine($"Int Literal: {value}");
+			}
 		}
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -181,12 +203,9 @@
 
 		public abstract class Statement : Tree
 		{
-			public Tree? body = null;
-
 			public override void Dispose()
 			{
 				base.Dispose();
-				body?.Dispose();
 				GC.SuppressFinalize(this);
 			}
 		}
@@ -195,11 +214,29 @@
 		{
 			public Expression? value = null;
 
+			public StatementReturn()
+			{
+				type = NodeType.ReturnStatement;
+			}
+
+			public StatementReturn(Expression? value)
+			{
+				type = NodeType.ReturnStatement;
+				this.value = value;
+			}
+
 			public override void Dispose()
 			{
 				base.Dispose();
 				value?.Dispose();
 				GC.SuppressFinalize(this);
+			}
+
+			public override void Print(int indent = 0)
+			{
+				AddIndent(indent);
+				Console.WriteLine("Return");
+				value?.Print(indent+1);
 			}
 		}
 	}

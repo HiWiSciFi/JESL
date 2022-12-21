@@ -119,6 +119,7 @@
 				Environment.Exit(-1);
 				return;
 			}
+			outStream.SetLength(0);
 
 			string[] inputCode;
 			try
@@ -145,15 +146,16 @@
 				Console.Write(": ");
 				Console.WriteLine(codeTokens[i].value);
 			}
+			Console.WriteLine();
 // ---------------------------------------------------------------------------------------------------------------------
 
 // ----------------------------------------------------- Print AST -----------------------------------------------------
-
-			// TODO
-
+			Console.WriteLine("Syntax Tree:");
+			Console.WriteLine();
+			ast.Print();
+			Console.WriteLine();
 // ---------------------------------------------------------------------------------------------------------------------
 
-			outStream.SetLength(0);
 			Generator.Run(ast, outStream);
 
 			outStream.Flush();

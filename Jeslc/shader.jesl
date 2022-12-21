@@ -2,3 +2,13 @@ int main()
 {
 	return 2;
 }
+
+int vert()
+{
+	return 4327;
+}
+
+int frag()
+{
+	return 0;
+}

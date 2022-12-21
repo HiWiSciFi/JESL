@@ -70,7 +70,7 @@
 
 			// OpExtension Instructions
 
-			// OpEXtInstImport Instructions
+			// OpExtInstImport Instructions
 			WriteInstruction(
 				SPIRV.OpExtInstImport,
 				1,
