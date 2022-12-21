@@ -4,7 +4,14 @@
 	{
 		public static Program Run(List<Lexer.Token> tokens)
 		{
-			return new Program();
+			Program program = new();
+
+			// Program
+			// | function: Function (name: "main")
+			// | | body: StatementReturn
+			// | | | expression: LiteralInteger (value: 2)
+
+			return program;
 		}
 	}
 }
