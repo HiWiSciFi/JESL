@@ -26,60 +26,62 @@
 			{
 				switch(args[i])
 				{
-				case "-?":
-				case "--help":
-					PrintUsage(Console.Out);
-					Console.WriteLine();
-					Console.WriteLine("<infile> is the file to compile");
-					Console.WriteLine();
-					Console.WriteLine("options:");
-					Console.WriteLine("  -?");
-					Console.WriteLine("  --help           show this help message");
-					Console.WriteLine();
-					Console.WriteLine($"  --version        print jeslc version (\"{VERSION}\")");
-					Console.WriteLine();
-					Console.WriteLine("  -o <file>");
-					Console.WriteLine("  --output <file>  output to file <file>");
-					Environment.Exit(0);
-					break;
-				case "--version":
-					if (versionPrinted)
-					{
-						Console.WriteLine($"WARN: Ignoring redundant parameter: {args[i]}");
-						continue;
-					}
-					Console.WriteLine($"INFO: jeslc version {VERSION}");
-					versionPrinted = true;
-					break;
+					case "-?":
+					case "--help":
+						PrintUsage(Console.Out);
+						Console.WriteLine();
+						Console.WriteLine("<infile> is the file to compile");
+						Console.WriteLine();
+						Console.WriteLine("options:");
+						Console.WriteLine("  -?");
+						Console.WriteLine("  --help           show this help message");
+						Console.WriteLine();
+						Console.WriteLine($"  --version        print jeslc version (\"{VERSION}\")");
+						Console.WriteLine();
+						Console.WriteLine("  -o <file>");
+						Console.WriteLine("  --output <file>  output to file <file>");
+						Environment.Exit(0);
+						return;
+					case "--version":
+						if (versionPrinted)
+						{
+							Console.WriteLine($"WARN: Ignoring redundant parameter: {args[i]}");
+							continue;
+						}
+						Console.WriteLine($"INFO: jeslc version {VERSION}");
+						versionPrinted = true;
+						break;
 
-				case "-o":
-				case "--output":
-					if (i + 1 >= args.Length)
-					{
-						Console.Error.WriteLine($"ERROR: Missing file parameter for {args[i]} flag.");
-						PrintUsage(Console.Error);
-						Environment.Exit(-1);
-					}
-					if (outputFilePath != null)
-					{
-						Console.WriteLine($"WARN: Ignoring redundant parameter: {args[i]} {args[i + 1]}");
+					case "-o":
+					case "--output":
+						if (i + 1 >= args.Length)
+						{
+							Console.Error.WriteLine($"ERROR: Missing file parameter for {args[i]} flag.");
+							PrintUsage(Console.Error);
+							Environment.Exit(-1);
+							return;
+						}
+						if (outputFilePath != null)
+						{
+							Console.WriteLine($"WARN: Ignoring redundant parameter: {args[i]} {args[i + 1]}");
+							i++;
+							continue;
+						}
+						outputFilePath = args[i + 1];
 						i++;
-						continue;
-					}
-					outputFilePath = args[i + 1];
-					i++;
-					break;
+						break;
 
-				default:
-					if (inputFilePath != null)
-					{
-						Console.Error.WriteLine("ERROR: Only one input file allowed");
-						Console.Error.WriteLine($"Tried adding {args[i]} after {inputFilePath} had already been added!");
-						PrintUsage(Console.Error);
-						Environment.Exit(-1);
-					}
-					inputFilePath = args[i];
-					break;
+					default:
+						if (inputFilePath != null)
+						{
+							Console.Error.WriteLine("ERROR: Only one input file allowed");
+							Console.Error.WriteLine($"Tried adding {args[i]} after {inputFilePath} had already been added!");
+							PrintUsage(Console.Error);
+							Environment.Exit(-1);
+							return;
+						}
+						inputFilePath = args[i];
+						break;
 				}
 			}
 
@@ -88,6 +90,7 @@
 				Console.Error.WriteLine("ERROR: No input file specified");
 				PrintUsage(Console.Error);
 				Environment.Exit(-1);
+				return;
 			}
 
 			if (outputFilePath is null)
@@ -100,15 +103,41 @@
 
 			if (!File.Exists(inputFilePath))
 			{
-				Console.Error.WriteLine($"Could not open file at \"{inputFilePath}\"");
+				Console.Error.WriteLine($"File at \"{inputFilePath}\" could not be found");
 				Environment.Exit(-1);
+				return;
 			}
 
-			string[] inputCode = File.ReadAllLines(inputFilePath, System.Text.Encoding.ASCII);
+			FileStream outStream;
+			try
+			{
+				outStream = new(outputFilePath, FileMode.OpenOrCreate, FileAccess.Write);
+			}
+			catch(Exception)
+			{
+				Console.Error.WriteLine($"File at \"{outputFilePath}\" could not be opened for writing");
+				Environment.Exit(-1);
+				return;
+			}
+
+			string[] inputCode;
+			try
+			{
+				inputCode = File.ReadAllLines(inputFilePath, System.Text.Encoding.ASCII);
+			}
+			catch(Exception)
+			{
+				Console.Error.WriteLine($"File at \"{inputFilePath}\" could not be opened for reading");
+				Environment.Exit(-1);
+				return;
+			}
+
 			List<Lexer.Token> codeTokens = Lexer.Run(inputCode);
 			Parser.Program ast = Parser.Run(codeTokens);
 
-   // ------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------- Print Tokens ---------------------------------------------------
+			Console.WriteLine("Tokens:");
+			Console.WriteLine();
 			for (int i = 0; i < codeTokens.Count; i++)
 			{
 				Console.Write(codeTokens[i].type.ToString());
@@ -116,9 +145,14 @@
 				Console.Write(": ");
 				Console.WriteLine(codeTokens[i].value);
 			}
-			// ------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 
-			FileStream outStream = new(outputFilePath, FileMode.OpenOrCreate, FileAccess.Write);
+// ----------------------------------------------------- Print AST -----------------------------------------------------
+
+			// TODO
+
+// ---------------------------------------------------------------------------------------------------------------------
+
 			outStream.SetLength(0);
 			Generator.Run(ast, outStream);
 
