@@ -89,7 +89,7 @@
 
 		public class Function : Tree
 		{
-			public string? identifier = null;
+			public string identifier = string.Empty;
 			public Statement? body = null;
 
 			public Function()

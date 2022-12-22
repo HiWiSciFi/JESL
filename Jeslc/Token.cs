@@ -25,7 +25,7 @@
 		public struct Token
 		{
 			public TokenType type = TokenType.None;
-			public string? value = null;
+			public string value = string.Empty;
 
 			public Token()
 			{ }
