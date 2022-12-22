@@ -83,6 +83,20 @@
 				SPIRV.MemoryModel.GLSL450);
 
 			// OpEntryPoint Instructions
+			for (int i = 0; i < program.functions.Count; i++)
+			{
+				WriteInstruction(
+					SPIRV.OpEntryPoint,
+					SPIRV.ExecutionModel.Vertex,
+					i + 4, /* Function Result <id> */
+					program.functions[i].identifier,
+					0);
+			}
+			WriteInstruction(
+				SPIRV.OpEntryPoint,
+				SPIRV.ExecutionModel.Vertex,
+				4 /* Function Result <id>*/,
+				"main");
 
 			// OpExecutionMode | OpExecutionModeId Instructions
 
