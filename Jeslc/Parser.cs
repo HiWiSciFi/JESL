@@ -1,6 +1,4 @@
-﻿using static Jeslc.Parser;
-
-namespace Jeslc
+﻿namespace Jeslc
 {
 	public static partial class Parser
 	{
@@ -25,9 +23,13 @@ namespace Jeslc
 			// | | body: StatementReturn
 			// | | | expression: LiteralInteger (value: 2)
 
-			for (int i = 0; i < tokens.Count; i++)
+			try
 			{
-				program.AddFunction(ParseFunction(tokens, ref i));
+				for (int i = 0; i < tokens.Count; i++) program.AddFunction(ParseFunction(tokens, ref i));
+			}
+			catch (IndexOutOfRangeException)
+			{
+				Error("Unexpected end of file");
 			}
 
 			return program;
